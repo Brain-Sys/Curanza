@@ -1,0 +1,203 @@
+﻿<Page
+    x:Class="BrainSys.UWP.Curanza.SampleApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BrainSys.UWP.Curanza.SampleApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:BrainSys.UWP.Curanza.SampleApp.ViewModels"
+    xmlns:curanza="using:BrainSys.UWP.Curanza.CommandsHelper"
+    xmlns:hlp="using:BrainSys.UWP.Curanza.SampleApp.Helpers"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <hlp:FeatureVisibilityConverter x:Key="cnv" />
+        <vm:FeaturesViewModel x:Key="featuresVm" />
+        <vm:SwipeViewModel x:Key="swipeVm" />
+        <vm:WheelViewModel x:Key="wheelVm" />
+        <vm:HoldViewModel x:Key="holdVm" />
+        <vm:TextBoxesViewModel x:Key="textBoxesVm" />
+        <vm:DragDropViewModel x:Key="dragdropVm" />
+        <vm:ItemClickViewModel x:Key="itemClickVm" />
+        <vm:DoubleTappedViewModel x:Key="doubleTappedVm" />
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" DataContext="{StaticResource featuresVm}"
+              curanza:FrameworkElementHelper.LoadedCommand="{Binding LoadedCommand}"
+              curanza:FrameworkElementHelper.LoadedCommandParameter="1">
+            <ListBox ItemsSource="{Binding Features}" SelectedItem="{Binding SelectedFeature,Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <Grid Grid.Column="1" DataContext="{StaticResource swipeVm}" Visibility="{Binding SelectedFeature,Source={StaticResource featuresVm},Converter={StaticResource cnv},ConverterParameter=SWIPE}">
+            <Border Background="Red" Margin="32" ManipulationMode="All"
+                curanza:Swipe.DownCommand="{Binding DownCommand}" curanza:Swipe.DownCommandParameter="down parameter"
+                curanza:Swipe.UpCommand="{Binding UpCommand}" curanza:Swipe.UpCommandParameter="up parameter"
+                curanza:Swipe.LeftCommand="{Binding LeftCommand}" curanza:Swipe.LeftCommandParameter="left parameter"
+                curanza:Swipe.RightCommand="{Binding RightCommand}" curanza:Swipe.RightCommandParameter="right parameter" />
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Message}" Margin="8" FontSize="28" HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding AdditionalMessage}" Margin="8" FontSize="28" HorizontalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" DataContext="{StaticResource wheelVm}" Visibility="{Binding SelectedFeature,Source={StaticResource featuresVm},Converter={StaticResource cnv},ConverterParameter=WHEEL}">
+            <Border Background="Red" Margin="32"
+                    curanza:Wheel.DownCommand="{Binding DownCommand}" curanza:Wheel.DownCommandParameter="5"
+                    curanza:Wheel.UpCommand="{Binding UpCommand}" curanza:Wheel.UpCommandParameter="20" />
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="use your mouse wheel" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" />
+                <TextBlock Text="{Binding Quantity}" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="64" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" DataContext="{StaticResource holdVm}" Visibility="{Binding SelectedFeature,Source={StaticResource featuresVm},Converter={StaticResource cnv},ConverterParameter=HOLD}">
+            <Border Background="Red" Margin="32" curanza:Hold.Command="{Binding Command}" />
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="press and hold here to execute the command" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" />
+                <TextBlock Text="{Binding Message}" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" DataContext="{StaticResource textBoxesVm}" Visibility="{Binding SelectedFeature,Source={StaticResource featuresVm},Converter={StaticResource cnv},ConverterParameter=TEXTBOXES}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Text" Value="The text is auto-selected when the textbox get focus" />
+                        <Setter Property="curanza:TextBoxHelper.AutoSelectAll" Value="True" />
+                    </Style>
+                </StackPanel.Resources>
+                <TextBox Text="insert a digit to execute the command"
+                         curanza:TextBoxHelper.RegexCommand="{Binding RegexCommand}"
+                         curanza:TextBoxHelper.RegexExpression="[0-9]"
+                         curanza:TextBoxHelper.RegexCommandParameter="parameter 1"/>
+                <TextBox Text="insert three upper case letters to execute the command"
+                         curanza:TextBoxHelper.RegexCommand="{Binding RegexCommand}"
+                         curanza:TextBoxHelper.RegexExpression="[A-Z][A-Z][A-Z]"
+                         curanza:TextBoxHelper.RegexCommandParameter="parameter 2"/>
+                <TextBox />
+                <TextBox />
+                <TextBox Text="press Enter here to execute the command" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" DataContext="{StaticResource dragdropVm}" Visibility="{Binding SelectedFeature,Source={StaticResource featuresVm},Converter={StaticResource cnv},ConverterParameter=DRAGDROP}">
+            <Grid.Resources>
+                <vm:MovedToBrushConverter x:Key="cnv" />
+                <DataTemplate x:Key="person">
+                    <Grid Padding="16" Background="{Binding Moved,Converter={StaticResource cnv}}">
+                        <TextBlock FontSize="14" curanza:DragDropHelper.DragCommand="{Binding DragCommand,Source={StaticResource dragdropVm}}"
+                               curanza:DragDropHelper.DragCommandParameter="{Binding}">
+                        <Run Text="{Binding FirstName}" />
+                        <Run Text=" " />
+                        <Run Text="{Binding LastName}" />
+                        <Run Text=" (" />
+                        <Run Text="{Binding Age}" />
+                        <Run Text=" years old)" />
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ListBox CanDrag="True" ItemsSource="{Binding People}" ItemTemplate="{StaticResource person}" Grid.Column="0">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <ListBox AllowDrop="True" ItemsSource="{Binding Destination}" ItemTemplate="{StaticResource person}" Grid.Column="1"
+                     curanza:DragDropHelper.DropCommand="{Binding DropCommand,Source={StaticResource dragdropVm}}" />
+            <TextBlock Text="{Binding DragDropMessage}" Grid.Row="1" Grid.ColumnSpan="2" />
+        </Grid>
+
+        <Grid Grid.Column="1" DataContext="{StaticResource itemClickVm}" Visibility="{Binding SelectedFeature,Source={StaticResource featuresVm},Converter={StaticResource cnv},ConverterParameter=ITEMCLICK}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Margin="8 0 0 0" FontSize="30" Text="Tap or Click an item to execute the command" TextWrapping="Wrap" />
+            <ListView ItemsSource="{Binding Items}" Grid.Row="1"
+                      curanza:ListViewBaseHelper.ItemClickCommand="{Binding GetDetailCommand}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{Binding Name}" />
+                            <Run Text=" (" />
+                            <Run Text="{Binding Version}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <Grid Grid.Column="1" DataContext="{StaticResource doubleTappedVm}" Visibility="{Binding SelectedFeature,Source={StaticResource featuresVm},Converter={StaticResource cnv},ConverterParameter=DOUBLETAPPED}">
+            <Grid.Resources>
+                <hlp:BooleanToVisibilityConverter x:Key="cnv1" />
+            </Grid.Resources>
+            <ListView ItemsSource="{Binding Items}" Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Visibility="{Binding IsNotEditing,Converter={StaticResource cnv1}}"
+                            curanza:FrameworkElementHelper.DoubleTappedCommand="{Binding EditItemCommand,Source={StaticResource doubleTappedVm}}"
+                            curanza:FrameworkElementHelper.DoubleTappedCommandParameter="{Binding}">
+                                <Run Text="{Binding Description}" />
+                                <Run Text=" (" />
+                                <Run Text="{Binding Number}" />
+                                <Run Text=")" />
+                            </TextBlock>
+                            <Grid Visibility="{Binding IsEditing,Converter={StaticResource cnv1}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Description :" Grid.Column="0" VerticalAlignment="Center" Margin="8 0 8 0" />
+                                <TextBox Text="{Binding Description,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Column="1" VerticalAlignment="Center" Margin="8 0 8 0"
+                                         curanza:FrameworkElementHelper.KeyDownCommand="{Binding ConfirmItemCommand,Source={StaticResource doubleTappedVm}}"
+                                         curanza:FrameworkElementHelper.KeyDownCommandParameter="{Binding}" />
+                                <TextBlock Text="Number :" Grid.Column="2" VerticalAlignment="Center" Margin="8 0 8 0" />
+                                <TextBox Text="{Binding Number,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Column="3" VerticalAlignment="Center" Margin="8 0 8 0"
+                                         
+                                         curanza:FrameworkElementHelper.KeyDownCommand="{Binding ConfirmItemCommand,Source={StaticResource doubleTappedVm}}"
+                                         curanza:FrameworkElementHelper.KeyDownCommandParameter="{Binding}"
+                                         curanza:FrameworkElementHelper.Key="Enter" />
+                                <Button Content="Ok" Padding="32 0 32 0" Grid.Column="4"
+                                        Command="{Binding ConfirmItemCommand,Source={StaticResource doubleTappedVm}}"
+                                        CommandParameter="{Binding}" />
+                                <Button Content="Call" Padding="32 0 32 0" Grid.Column="5"
+                                        Command="{Binding CallPhoneNumberCommand,Source={StaticResource doubleTappedVm}}"
+                                        CommandParameter="{Binding}">
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+    </Grid>
+</Page>
