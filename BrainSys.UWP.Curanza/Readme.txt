@@ -63,6 +63,19 @@ Four different string parameters are passed for each command.
   curanza:Swipe.LeftCommand="{Binding LeftCommand}" curanza:Swipe.LeftCommandParameter="left parameter"
   curanza:Swipe.RightCommand="{Binding RightCommand}" curanza:Swipe.RightCommandParameter="right parameter" />
 
+Curanza : Hold
+You can bind a RelayCommand when the user performs an hold gesture over any UIElement.
+Optionally you can pass any parameter to the command.
+See the example below.
+<Border curanza:Hold.Command="{Binding Command}" curanza:Hold.CommandParameter="1" />
+
+Curanza : ListView
+You can bind a RelayCommand when the user clicks on a element inside a ListView. Internally the RelayCommand is executed when the ListView raises the ItemClick event.
+You cannot pass a custom parameter to the command, because the clicked item is automatically used and sent to the RelayCommand.
+In this example, the command GetDetailCommand is executed when the user clicks on a element; the clicked item is passed to the command.
+<ListView ItemsSource="{Binding Items}"
+  curanza:ListViewBaseHelper.ItemClickCommand="{Binding GetDetailCommand}">
+
 Curanza - About
 ******************************************************
 Curanza is developed by Brain-Sys Srl (2015)

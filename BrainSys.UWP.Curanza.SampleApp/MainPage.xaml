@@ -63,7 +63,7 @@
         </Grid>
 
         <Grid Grid.Column="1" DataContext="{StaticResource holdVm}" Visibility="{Binding SelectedFeature,Source={StaticResource featuresVm},Converter={StaticResource cnv},ConverterParameter=HOLD}">
-            <Border Background="Red" Margin="32" curanza:Hold.Command="{Binding Command}" />
+            <Border Background="Red" Margin="32" curanza:Hold.Command="{Binding Command}" curanza:Hold.CommandParameter="23" />
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="press and hold here to execute the command" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" />
                 <TextBlock Text="{Binding Message}" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" />
