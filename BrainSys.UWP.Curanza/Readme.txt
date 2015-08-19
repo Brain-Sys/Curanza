@@ -1,13 +1,22 @@
 ﻿Welcome to Curanza
 ******************************************************
-Curanza is a lightweight library useful to create powerful Universal Windows Platform applications for Windows 10.
-Using Curanza you can successfully use MVVM pattern to your applications.
+Curanza is a lightweight library useful to create powerful Universal Windows Platform (UWP) applications for Windows 10.
+Using Curanza you can successfully apply MVVM pattern to your applications.
 
+Curanza - Objective
+******************************************************
+The main purpose of Curanza is to simplify the development of a UWP app for any supported platform.
+Today a modern app is developed using MVVM pattern, and Curanza helps you to successfully apply this pattern.
+Using Curanza, for example, you can bind a RelayCommand (and optionally his parameter) to most useful gesture/events
+performed by the user on the UI.
+
+Curanza - Dependencies
+******************************************************
 Curanza is built on top of MVVM Light Toolkit developed by Laurent Bugnion.
 You can get more information about MVVM Light Toolkit at the following url:
 https://mvvmlight.codeplex.com/
 http://www.mvvmlight.net/
-You can get MVVM Light Toolkit using NuGet:
+You can get MVVM Light Toolkit using NuGet directly from Visual Studio or using official website:
 https://www.nuget.org/packages/MvvmLightLibs/
 
 Curanza - Scenarios
