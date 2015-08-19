@@ -3,23 +3,22 @@
 Curanza is a lightweight library useful to create powerful Universal Windows Platform (UWP) applications for Windows 10.
 Using Curanza you can successfully apply MVVM pattern to your applications.
 
-Curanza - Objective
+Curanza : Objective
 ******************************************************
 The main purpose of Curanza is to simplify the development of a UWP app for any supported platform.
 Today a modern app is developed using MVVM pattern, and Curanza helps you to successfully apply this pattern.
-Using Curanza, for example, you can bind a RelayCommand (and optionally his parameter) to most useful gesture/events
+Using Curanza, for example, you can bind a RelayCommand (and optionally his parameter) to most typical gesture/events
 performed by the user on the UI.
 
-Curanza - Dependencies
+Curanza : Purposes
 ******************************************************
 Curanza is built on top of MVVM Light Toolkit developed by Laurent Bugnion.
 You can get more information about MVVM Light Toolkit at the following url:
 https://mvvmlight.codeplex.com/
 http://www.mvvmlight.net/
-You can get MVVM Light Toolkit using NuGet directly from Visual Studio or using official website:
-https://www.nuget.org/packages/MvvmLightLibs/
+When you get Curanza from NuGet, you automatically download MVVM Light Toolkit. No worries about that!
 
-Curanza - Scenarios
+Curanza : Scenarios
 ******************************************************
 Using Curanza you can execute a command:
 - when a TextBox matches a specified regular expression
@@ -35,6 +34,34 @@ Using Curanza you can execute a command when the user:
 
 Other typical usage:
 - you can auto-select-all the content of a TextBox when it gets focus
+
+Curanza : TextBox
+You can bind a RelayCommand when a TextBox content matches a specified regular expression. Optionally, you can pass an object parameter.
+In the example, the command RegexCommand is executed when the user insert a digit.
+<TextBox Text="insert a digit to execute the command" curanza:TextBoxHelper.RegexCommand="{Binding RegexCommand}"
+  curanza:TextBoxHelper.RegexExpression="[0-9]" curanza:TextBoxHelper.RegexCommandParameter="parameter 1"/>
+
+In the example, the command RegexCommand is executed when the user insert three upper-case letters.
+<TextBox Text="insert three upper case letters to execute the command" curanza:TextBoxHelper.RegexCommand="{Binding RegexCommand}"
+  curanza:TextBoxHelper.RegexExpression="[A-Z][A-Z][A-Z]" curanza:TextBoxHelper.RegexCommandParameter="parameter 2"/>
+
+Curanza : Mouse wheel
+You can bind a RelayCommand when the user use the mouse wheel over any UIElement of the UI.
+In the example, the commands DownCommand and UpCommand are executed when the user use the mouse.
+Two different integer parameters are passed.
+<Border Background="Red" Margin="32"
+  curanza:Wheel.DownCommand="{Binding DownCommand}" curanza:Wheel.DownCommandParameter="5"
+  curanza:Wheel.UpCommand="{Binding UpCommand}" curanza:Wheel.UpCommandParameter="20" />
+
+Curanza : Swipe
+You can bind a RelayCommand when the user swipes in the four directions over any UIElement.
+In the example, four different commands are executed when the user swipes.
+Four different string parameters are passed for each command.
+<Border ManipulationMode="All"
+  curanza:Swipe.DownCommand="{Binding DownCommand}" curanza:Swipe.DownCommandParameter="down parameter"
+  curanza:Swipe.UpCommand="{Binding UpCommand}" curanza:Swipe.UpCommandParameter="up parameter"
+  curanza:Swipe.LeftCommand="{Binding LeftCommand}" curanza:Swipe.LeftCommandParameter="left parameter"
+  curanza:Swipe.RightCommand="{Binding RightCommand}" curanza:Swipe.RightCommandParameter="right parameter" />
 
 Curanza - About
 ******************************************************
