@@ -158,6 +158,7 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
         }
         #endregion
 
+        #region KeyDownCommand
         public static ICommand GetKeyDownCommand(DependencyObject obj)
         {
             return (ICommand)obj.GetValue(KeyDownCommandProperty);
@@ -174,7 +175,9 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
             typeof(FrameworkElementHelper),
             new PropertyMetadata(null,
             new PropertyChangedCallback(SetupKeyDownCommand)));
+        #endregion
 
+        #region KeyDownCommandParameter
         public static object GetKeyDownCommandParameter(DependencyObject obj)
         {
             return obj.GetValue(KeyDownCommandParameterProperty);
@@ -190,7 +193,9 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
                     typeof(object),
                     typeof(FrameworkElementHelper),
                     new PropertyMetadata(null));
+        #endregion
 
+        #region Key
         public static VirtualKey GetKey(DependencyObject obj)
         {
             return (VirtualKey)obj.GetValue(KeyProperty);
@@ -206,7 +211,9 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
                     typeof(VirtualKey),
                     typeof(FrameworkElementHelper),
                     new PropertyMetadata(VirtualKey.Enter));
+        #endregion
 
+        #region KeyDown management
         private static void SetupKeyDownCommand(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             var ctl = obj as FrameworkElement;
@@ -246,6 +253,7 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
                     }
                 }
             }
-        }
+        } 
+        #endregion
     }
 }

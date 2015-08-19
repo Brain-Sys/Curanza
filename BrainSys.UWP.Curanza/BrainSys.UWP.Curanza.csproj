@@ -126,6 +126,7 @@
     <Compile Include="Network\UniversalServiceClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\BrainSys.UWP.Curanza.rd.xml" />
+    <Content Include="Readme.txt" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
