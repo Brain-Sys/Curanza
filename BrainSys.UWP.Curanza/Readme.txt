@@ -70,11 +70,41 @@ See the example below.
 <Border curanza:Hold.Command="{Binding Command}" curanza:Hold.CommandParameter="1" />
 
 Curanza : ListView
-You can bind a RelayCommand when the user clicks on a element inside a ListView. Internally the RelayCommand is executed when the ListView raises the ItemClick event.
-You cannot pass a custom parameter to the command, because the clicked item is automatically used and sent to the RelayCommand.
-In this example, the command GetDetailCommand is executed when the user clicks on a element; the clicked item is passed to the command.
+You can bind a RelayCommand when the user clicks on a element inside a ListView. Internally the RelayCommand is executed
+when the ListView raises the ItemClick event. You cannot pass a custom parameter to the command, because the clicked item
+is automatically used and sent to the RelayCommand.
+In this example, the command GetDetailCommand is executed when the user clicks on an item contained in the ListView.
+The clicked item is passed to the command.
 <ListView ItemsSource="{Binding Items}"
   curanza:ListViewBaseHelper.ItemClickCommand="{Binding GetDetailCommand}">
+
+Curanza : FrameworkElement
+You can bind a RelayCommand when a FrameworkElement is loaded on the UI.
+You can pass any custom parameter to the command.
+In the example below, the command LoadedCommand is executed when the Grid is loaded from the UWP engine.
+<Grid DataContext="{StaticResource featuresVm}"
+  curanza:FrameworkElementHelper.LoadedCommand="{Binding LoadedCommand}"
+  curanza:FrameworkElementHelper.LoadedCommandParameter="1">
+
+You can bind a RelayCommand when the user double-tap any FrameworkElement on the UI.
+You can pass any custom parameter to the command.
+In the example below, the command EditItemCommand is executed when the user performs a double-tap on the TextBlock.
+<TextBlock
+  curanza:FrameworkElementHelper.DoubleTappedCommand="{Binding EditItemCommand}"
+  curanza:FrameworkElementHelper.DoubleTappedCommandParameter="{Binding}">
+
+You can bind a RelayCommand when the user press any key and the associated FrameworkElement has focus.
+You can pass any custom parameter to the command. Is no key is specified, Enter key is used.
+See the example below. The command ConfirmItemCommand is executed when the user press Enter key and the TextBox has focus.
+<TextBox Text="{Binding Description}"
+  curanza:FrameworkElementHelper.KeyDownCommand="{Binding ConfirmItemCommand}"
+  curanza:FrameworkElementHelper.KeyDownCommandParameter="{Binding}" />
+
+You can specify a different key using the Key property (F4 in the example).
+<TextBox Text="{Binding Description}"
+  curanza:FrameworkElementHelper.KeyDownCommand="{Binding ConfirmItemCommand}"
+  curanza:FrameworkElementHelper.KeyDownCommandParameter="{Binding}"
+  curanza:FrameworkElementHelper.Key="F4" />
 
 Curanza - About
 ******************************************************
