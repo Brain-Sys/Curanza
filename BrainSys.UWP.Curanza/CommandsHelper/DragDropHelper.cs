@@ -11,6 +11,7 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
 {
     public class DragDropHelper
     {
+        #region DragCommand
         public static ICommand GetDragCommand(DependencyObject obj)
         {
             return (ICommand)obj.GetValue(DragCommandProperty);
@@ -27,7 +28,9 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
             typeof(DragDropHelper),
             new PropertyMetadata(null,
             new PropertyChangedCallback(SetupDrag)));
+        #endregion
 
+        #region DragCommandParameter
         public static object GetDragCommandParameter(DependencyObject obj)
         {
             return (object)obj.GetValue(DragCommandParameterProperty);
@@ -43,7 +46,9 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
             typeof(object),
             typeof(DragDropHelper),
             new PropertyMetadata(null));
+        #endregion
 
+        #region DropCommand
         public static ICommand GetDropCommand(DependencyObject obj)
         {
             return (ICommand)obj.GetValue(DropCommandProperty);
@@ -60,7 +65,9 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
             typeof(DragDropHelper),
             new PropertyMetadata(null,
             new PropertyChangedCallback(SetupDrop)));
+        #endregion
 
+        #region DropCommandParameter
         public static object GetDropCommandParameter(DependencyObject obj)
         {
             return (object)obj.GetValue(DropCommandParameterProperty);
@@ -75,7 +82,8 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
             DependencyProperty.RegisterAttached("DropCommandParameter",
             typeof(object),
             typeof(DragDropHelper),
-            new PropertyMetadata(null));
+            new PropertyMetadata(null)); 
+        #endregion
 
         public static DragIcon GetDataPackageOperation(DependencyObject obj)
         {

@@ -78,6 +78,24 @@ The clicked item is passed to the command.
 <ListView ItemsSource="{Binding Items}"
   curanza:ListViewBaseHelper.ItemClickCommand="{Binding GetDetailCommand}">
 
+Curanza : Drag'n'Drop task
+Drag'n'Drop is a complex operation that the user can perform on the UI. Curanza simplify all your work.
+You can bind a RelayCommand when the user begin to drag any UIElement on the UI (DragCommand property).
+You can bind a RelayCommand when the user drops over any UIElement on the UI (DropCommand property).
+When the user drags over the UIElement, the CanExecute of the DropCommand is automatically checked:
+if the drop is available, the icon appears near the mouse pointer.
+You can set any icon using the DataPackageOperation property (by default is set to Copy).
+In both drag and drop commands you can pass any custom parameters.
+See the example below for more details about drag'n'drop management with Curanza.
+<TextBlock curanza:DragDropHelper.DragCommand="{Binding DragCommand,Source={StaticResource dragdropVm}}"
+  curanza:DragDropHelper.DragCommandParameter="{Binding}">
+<ListBox ItemsSource="{Binding Destination}" ItemTemplate="{StaticResource person}"
+  curanza:DragDropHelper.DropCommand="{Binding DropCommand,Source={StaticResource dragdropVm}}"
+  curanza:DragDropHelper.DataPackageOperation="Link" />
+With this XAML, the user can begin a drag'n'drop operation from the TextBlock: the command DragCommand is executed.
+When the user drag over the ListBox, the CanExecute of the DropCommand is automatically executed.
+If the result is true, the Link icon appears near the mouse pointer and the user can finally drop.
+
 Curanza : FrameworkElement
 You can bind a RelayCommand when a FrameworkElement is loaded on the UI.
 You can pass any custom parameter to the command.

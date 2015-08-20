@@ -124,8 +124,9 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-            <ListBox AllowDrop="True" ItemsSource="{Binding Destination}" ItemTemplate="{StaticResource person}" Grid.Column="1"
-                     curanza:DragDropHelper.DropCommand="{Binding DropCommand,Source={StaticResource dragdropVm}}" />
+            <ListBox ItemsSource="{Binding Destination}" ItemTemplate="{StaticResource person}" Grid.Column="1"
+                     curanza:DragDropHelper.DropCommand="{Binding DropCommand,Source={StaticResource dragdropVm}}"
+                     curanza:DragDropHelper.DataPackageOperation="Link" />
             <TextBlock Text="{Binding DragDropMessage}" Grid.Row="1" Grid.ColumnSpan="2" />
         </Grid>
 
