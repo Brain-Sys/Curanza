@@ -8,6 +8,8 @@ Today a modern app is developed using MVVM pattern, and Curanza helps you to suc
 Using Curanza, for example, you can bind a RelayCommand (and optionally his parameter) to most typical gesture/events
 performed by the user on the UI.
 
+You can open this solution with any edition of Visual Studio 2015. Inside you will find two projects: the Curanza library and a sample app to test the capability of Curanza.
+
 # Dependencies
 Curanza is built on top of MVVM Light Toolkit developed by Laurent Bugnion.
 
