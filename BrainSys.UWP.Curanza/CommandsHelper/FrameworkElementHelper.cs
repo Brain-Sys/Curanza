@@ -238,7 +238,6 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
 
         private static void Ctl_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            e.Handled = true;
             var element = sender as DependencyObject;
 
             if (e.Key == GetKey(element))
@@ -250,6 +249,7 @@ namespace BrainSys.UWP.Curanza.CommandsHelper
                 {
                     if (command.CanExecute(parameter))
                     {
+                        e.Handled = true;
                         command.Execute(parameter);
                     }
                 }
