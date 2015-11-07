@@ -88,7 +88,9 @@
                          curanza:TextBoxHelper.RegexCommandParameter="parameter 2"/>
                 <TextBox />
                 <TextBox />
-                <TextBox Text="press Enter here to execute the command" />
+                <TextBox Text="press Enter here to execute the command"
+                         curanza:FrameworkElementHelper.Key="Enter"
+                         curanza:FrameworkElementHelper.KeyDownCommand="{Binding RegexCommand}" />
             </StackPanel>
         </Grid>
 
